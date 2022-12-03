@@ -260,7 +260,7 @@ void SystemView::onCursorChanged(const CursorState& /*state*/)
 		if (!getSelected()->isGameSystem())
 			ss << "CONFIGURATION";
 		else
-			ss << gameCount << " GAME" << (gameCount == 1 ? "" : "S") << " AVAILABLE";
+			ss << "#  " << gameCount << " GAME" << (gameCount == 1 ? "" : "S") << " AVAILABLE";
 
 		mSystemInfo.setText(ss.str());
 	}, false, 1);
@@ -322,7 +322,7 @@ void SystemView::onCursorChanged(const CursorState& /*state*/)
 			this->mCamOffset = move_carousel ? f : endPos;
 			this->mExtrasCamOffset = f;
 		}, 500);
-	} else {
+	} else if (transition_style == "instant") {
 		// instant
 		anim = new LambdaAnimation(
 			[this, startPos, endPos, posMax, move_carousel ](float t)
@@ -337,6 +337,22 @@ void SystemView::onCursorChanged(const CursorState& /*state*/)
 			this->mCamOffset = move_carousel ? f : endPos;
 			this->mExtrasCamOffset = endPos;
 		}, move_carousel ? 500 : 1);
+	} else {
+		// arcade
+		// slide
+		anim = new LambdaAnimation(
+			[this, startPos, endPos, posMax, move_carousel](float t)
+		{
+			t -= 1;
+			float f = Math::lerp(startPos, endPos, t*t*t + 1);
+			if(f < 0)
+				f += posMax;
+			if(f >= posMax)
+				f -= posMax;
+
+			this->mCamOffset = move_carousel ? f : endPos;
+			this->mExtrasCamOffset = f;
+		}, 500);
 	}
 
 
@@ -518,9 +534,9 @@ void SystemView::renderCarousel(const Transform4x4f& trans)
 		scale = Math::min(mCarousel.logoScale, Math::max(1.0f, scale));
 		scale /= mCarousel.logoScale;
 
-		int opacity = (int)Math::round(0x80 + ((0xFF - 0x80) * (1.0f - fabs(distance))));
-		opacity = Math::max((int) 0x80, opacity);
-
+		int opacity = (int)Math::round(0x26 + ((0xFF - 0x26) * (1.0f - fabs(distance))));
+		opacity = Math::max((int) 0x26, opacity);
+		
 		const std::shared_ptr<GuiComponent> &comp = mEntries.at(index).data.logo;
 		if (mCarousel.type == VERTICAL_WHEEL || mCarousel.type == HORIZONTAL_WHEEL) {
 			comp->setRotationDegrees(mCarousel.logoRotation * distance);
