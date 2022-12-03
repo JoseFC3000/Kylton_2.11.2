@@ -197,7 +197,7 @@ void ViewController::playViewTransition()
 		// slide or simple slide
 		setAnimation(new MoveCameraAnimation(mCamera, target));
 		updateHelpPrompts(); // update help prompts immediately
-	} else {
+	} else if (transition_style == "instant"){
 		// instant
 		setAnimation(new LambdaAnimation(
 			[this, target](float /*t*/)
@@ -205,6 +205,11 @@ void ViewController::playViewTransition()
 			this->mCamera.translation() = -target;
 		}, 1));
 		updateHelpPrompts();
+	} else {
+		// arcade
+		// slide or simple slide
+		setAnimation(new MoveCameraAnimation(mCamera, target));
+		updateHelpPrompts(); // update help prompts immediately
 	}
 }
 
