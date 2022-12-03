@@ -35,17 +35,25 @@ private:
 
 	ImageComponent mThumbnail;
 	ImageComponent mMarquee;
+	ImageComponent mScreenshot;
 	VideoComponent* mVideo;
 	ImageComponent mImage;
+	ImageComponent mImage1;
+	ImageComponent mImage2;
 
-	TextComponent mLblRating, mLblReleaseDate, mLblDeveloper, mLblPublisher, mLblGenre, mLblPlayers, mLblLastPlayed, mLblPlayCount;
+	TextComponent mLblRating, mLblReleaseDate, mLblDeveloper, mLblPublisher, mLblSystemName, mLblRegion, mLblFeatures, mLblGenre, mLblPlayers, mLblComment, mLblRom, mLblLastPlayed, mLblPlayCount;
 
 	RatingComponent mRating;
 	DateTimeComponent mReleaseDate;
 	TextComponent mDeveloper;
 	TextComponent mPublisher;
+	TextComponent mSystemName;
+	TextComponent mRegion;
+	TextComponent mFeatures;
 	TextComponent mGenre;
 	TextComponent mPlayers;
+	TextComponent mComment;
+	TextComponent mRom;
 	DateTimeComponent mLastPlayed;
 	TextComponent mPlayCount;
 	TextComponent mName;
