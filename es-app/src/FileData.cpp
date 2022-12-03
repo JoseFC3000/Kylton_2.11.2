@@ -150,6 +150,28 @@ const std::string FileData::getMarqueePath() const
 	return marquee;
 }
 
+const std::string FileData::getScreenshotPath() const
+{
+	std::string screenshot = metadata.get("screenshot");
+
+	// no screenshot, try to use local screenshot
+	if(screenshot.empty() && Settings::getInstance()->getBool("LocalArt"))
+	{
+		const char* extList[2] = { ".png", ".jpg" };
+		for(int i = 0; i < 2; i++)
+		{
+			if(screenshot.empty())
+			{
+				std::string path = mEnvData->mStartPath + "/images/" + getDisplayName() + "-screenshot" + extList[i];
+				if(Utils::FileSystem::exists(path))
+					screenshot = path;
+			}
+		}
+	}
+
+	return screenshot;
+}
+
 const std::string FileData::getImagePath() const
 {
 	std::string image = metadata.get("image");
@@ -170,6 +192,50 @@ const std::string FileData::getImagePath() const
 	}
 
 	return image;
+}
+
+const std::string FileData::getImage1Path() const
+{
+	std::string image1 = metadata.get("image1");
+
+	// no image1, try to use local image1
+	if(image1.empty())
+	{
+		const char* extList[2] = { ".png", ".jpg" };
+		for(int i = 0; i < 2; i++)
+		{
+			if(image1.empty())
+			{
+				std::string path = mEnvData->mStartPath + "/images/" + getDisplayName() + "-image1" + extList[i];
+				if(Utils::FileSystem::exists(path))
+					image1 = path;
+			}
+		}
+	}
+
+	return image1;
+}
+
+const std::string FileData::getImage2Path() const
+{
+	std::string image2 = metadata.get("image2");
+
+	// no image2, try to use local image2
+	if(image2.empty())
+	{
+		const char* extList[2] = { ".png", ".jpg" };
+		for(int i = 0; i < 2; i++)
+		{
+			if(image2.empty())
+			{
+				std::string path = mEnvData->mStartPath + "/images/" + getDisplayName() + "-image2" + extList[i];
+				if(Utils::FileSystem::exists(path))
+					image2 = path;
+			}
+		}
+	}
+
+	return image2;
 }
 
 std::vector<FileData*> FileData::getFilesRecursive(unsigned int typeMask, bool displayedOnly) const
