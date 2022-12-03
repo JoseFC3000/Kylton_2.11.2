@@ -48,7 +48,10 @@ public:
 	virtual const std::string getThumbnailPath() const;
 	virtual const std::string getVideoPath() const;
 	virtual const std::string getMarqueePath() const;
+	virtual const std::string getScreenshotPath() const;
 	virtual const std::string getImagePath() const;
+	virtual const std::string getImage1Path() const;
+	virtual const std::string getImage2Path() const;
 
 	const std::vector<FileData*>& getChildrenListToDisplay();
 	std::vector<FileData*> getFilesRecursive(unsigned int typeMask, bool displayedOnly = false) const;
