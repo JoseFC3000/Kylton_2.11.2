@@ -14,10 +14,10 @@
 class TextCache;
 
 #define FONT_SIZE_HELP ((unsigned int)(0.025f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
-#define FONT_SIZE_MINI ((unsigned int)(0.025f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
-#define FONT_SIZE_SMALL ((unsigned int)(0.030f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
-#define FONT_SIZE_MEDIUM ((unsigned int)(0.040f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
-#define FONT_SIZE_LARGE ((unsigned int)(0.080f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
+#define FONT_SIZE_MINI ((unsigned int)(0.020f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
+#define FONT_SIZE_SMALL ((unsigned int)(0.025f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
+#define FONT_SIZE_MEDIUM ((unsigned int)(0.035f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
+#define FONT_SIZE_LARGE ((unsigned int)(0.070f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
 
 #define FONT_PATH_LIGHT "/opt/retropie/configs/all/emulationstation/theme_resources/fonts/Font - TrueType - Swiss 721 Light Condensed BT.ttf"
 #define FONT_PATH_REGULAR "/opt/retropie/configs/all/emulationstation/theme_resources/fonts/Font - TrueType - Swiss 721 Condensed BT.ttf"
