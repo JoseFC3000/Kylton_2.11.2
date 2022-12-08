@@ -19,8 +19,8 @@ class TextCache;
 #define FONT_SIZE_MEDIUM ((unsigned int)(0.045f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
 #define FONT_SIZE_LARGE ((unsigned int)(0.085f * Math::min((int)Renderer::getScreenHeight(), (int)Renderer::getScreenWidth())))
 
-#define FONT_PATH_LIGHT "/opt/retropie/configs/all/emulationstation/theme_resources/fonts/d-din_condensed.otf"
-#define FONT_PATH_REGULAR "/opt/retropie/configs/all/emulationstation/theme_resources/fonts/d-din_condensed.otf"
+#define FONT_PATH_LIGHT "/opt/retropie/configs/all/emulationstation/theme_resources/fonts/Font - TrueType - Swiss 721 Light Condensed BT.ttf"
+#define FONT_PATH_REGULAR "/opt/retropie/configs/all/emulationstation/theme_resources/fonts/Font - TrueType - Swiss 721 Condensed BT.ttf"
 
 enum Alignment
 {
