@@ -422,7 +422,7 @@ const std::string& CollectionFileData::getName()
 {
 	if (mDirty) {
 		mCollectionFileName = Utils::String::removeParenthesis(mSourceFileData->metadata.get("name"));
-		mCollectionFileName += " [" + Utils::String::toUpper(mSourceFileData->getSystem()->getPlatformIds()) + "]";
+		mCollectionFileName += " [" + Utils::String::toUpper(mSourceFileData->getSystem()->getFullname()) + "]";
 		mDirty = false;
 	}
 
