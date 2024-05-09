@@ -1,7 +1,6 @@
 #include "InputConfig.h"
 
 #include "Log.h"
-#include "utils/StringUtil.h"
 #include <pugixml/src/pugixml.hpp>
 
 //some util functions
@@ -39,11 +38,19 @@ InputType stringToInputType(const std::string& type)
 	return TYPE_COUNT;
 }
 
+std::string toLower(std::string str)
+{
+	for(unsigned int i = 0; i < str.length(); i++)
+	{
+		str[i] = (char)tolower(str[i]);
+	}
+
+	return str;
+}
+//end util functions
 
 InputConfig::InputConfig(int deviceId, const std::string& deviceName, const std::string& deviceGUID) : mDeviceId(deviceId), mDeviceName(deviceName), mDeviceGUID(deviceGUID)
 {
-	mVendorId   =  0;
-	mProductId  =  0;
 }
 
 void InputConfig::clear()
@@ -58,7 +65,7 @@ bool InputConfig::isConfigured()
 
 void InputConfig::mapInput(const std::string& name, Input input)
 {
-	mNameMap[Utils::String::toLower(name)] = input;
+	mNameMap[toLower(name)] = input;
 }
 
 void InputConfig::unmapInput(const std::string& name)
@@ -70,7 +77,7 @@ void InputConfig::unmapInput(const std::string& name)
 
 bool InputConfig::getInputByName(const std::string& name, Input* result)
 {
-	auto it = mNameMap.find(Utils::String::toLower(name));
+	auto it = mNameMap.find(toLower(name));
 	if(it != mNameMap.cend())
 	{
 		*result = it->second;
@@ -180,7 +187,7 @@ void InputConfig::loadFromXML(pugi::xml_node& node)
 		if(value == 0)
 			LOG(LogWarning) << "WARNING: InputConfig value is 0 for " << type << " " << id << "!\n";
 
-		mNameMap[Utils::String::toLower(name)] = Input(mDeviceId, typeEnum, id, value, true);
+		mNameMap[toLower(name)] = Input(mDeviceId, typeEnum, id, value, true);
 	}
 }
 
@@ -202,11 +209,6 @@ void InputConfig::writeToXML(pugi::xml_node& parent)
 	{
 		cfg.append_attribute("type") = "joystick";
 		cfg.append_attribute("deviceName") = mDeviceName.c_str();
-		if(mVendorId && mProductId)
-		{
-			cfg.append_attribute("vendorId") = mVendorId;
-			cfg.append_attribute("productId") = mProductId;
-		}
 	}
 
 	cfg.append_attribute("deviceGUID") = mDeviceGUID.c_str();
