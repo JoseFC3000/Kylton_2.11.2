@@ -23,11 +23,11 @@ VideoGameListView::VideoGameListView(Window* window, FileData* root) :
 	mVideo(nullptr),
 	mVideoPlaying(false),
 
-	mLblRating(window), mLblReleaseDate(window), mLblDeveloper(window), mLblPublisher(window), mLblFullSystem(window), mLblRegion(window), mLblFeatures(window),
-	mLblGenre(window), mLblPlayers(window), mLblComment(window), mLblRom(window), mLblLastPlayed(window), mLblPlayCount(window),
+	mLblRating(window), mLblReleaseDate(window), mLblDeveloper(window), mLblPublisher(window), mLblFullSystem(window), mLblRegion(window), mLblControls(window),
+	mLblFormat(window), mLblGenre(window), mLblPlayers(window), mLblComment(window), mLblFirstRelease(window), mLblLastPlayed(window), mLblPlayCount(window),
 
-	mRating(window), mReleaseDate(window), mDeveloper(window), mPublisher(window), mFullSystem(window), mRegion(window), mFeatures(window),
-	mGenre(window), mPlayers(window), mComment(window), mRom(window), mLastPlayed(window), mPlayCount(window),
+	mRating(window), mReleaseDate(window), mDeveloper(window), mPublisher(window), mFullSystem(window), mRegion(window), mControls(window), mFormat(window),
+	mGenre(window), mPlayers(window), mComment(window), mFirstRelease(window), mLastPlayed(window), mPlayCount(window),
 	mName(window)
 {
 	const float padding = 0.01f;
@@ -128,9 +128,12 @@ VideoGameListView::VideoGameListView(Window* window, FileData* root) :
 	mLblRegion.setText("Region: ");
 	addChild(&mLblRegion);
 	addChild(&mRegion);
-	mLblFeatures.setText("Features: ");
-	addChild(&mLblFeatures);
-	addChild(&mFeatures);
+	mLblControls.setText("Controls: ");
+	addChild(&mLblControls);
+	addChild(&mControls);
+	mLblFormat.setText("Format: ");
+	addChild(&mLblFormat);
+	addChild(&mFormat);
 	mLblGenre.setText("Genre: ");
 	addChild(&mLblGenre);
 	addChild(&mGenre);
@@ -140,7 +143,7 @@ VideoGameListView::VideoGameListView(Window* window, FileData* root) :
 	mLblComment.setText("Comment: ");
 	addChild(&mLblComment);
 	addChild(&mComment);
-	mLblRom.setText("Rom Info: ");
+	mLblFirstRelease.setText("First Release Date: ");
 	addChild(&mLblRom);
 	addChild(&mRom);
 	mLblLastPlayed.setText("Last played: ");
@@ -195,8 +198,8 @@ void VideoGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& theme)
 	std::vector<TextComponent*> labels = getMDLabels();
 	assert(labels.size() == 13);
 	const char* lblElements[13] = {
-		"md_lbl_rating", "md_lbl_releasedate", "md_lbl_developer", "md_lbl_publisher", "md_lbl_fullsystem", "md_lbl_region", "md_lbl_features",
-		"md_lbl_genre", "md_lbl_players", "md_lbl_comment", "md_lbl_rom", "md_lbl_lastplayed", "md_lbl_playcount"
+		"md_lbl_rating", "md_lbl_releasedate", "md_lbl_developer", "md_lbl_publisher", "md_lbl_fullsystem", "md_lbl_region", "md_lbl_controls",
+		"md_lbl_format", "md_lbl_genre", "md_lbl_players", "md_lbl_comment", "md_lbl_firstrelease", "md_lbl_lastplayed", "md_lbl_playcount"
 	};
 
 	for(unsigned int i = 0; i < labels.size(); i++)
@@ -207,10 +210,10 @@ void VideoGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& theme)
 
 	initMDValues();
 	std::vector<GuiComponent*> values = getMDValues();
-	assert(values.size() == 13);
-	const char* valElements[13] = {
-		"md_rating", "md_releasedate", "md_developer", "md_publisher", "md_fullsystem", "md_region", "md_features",
-		"md_genre", "md_players", "md_comment", "md_rom", "md_lastplayed", "md_playcount"
+	assert(values.size() == 14);
+	const char* valElements[14] = {
+		"md_rating", "md_releasedate", "md_developer", "md_publisher", "md_fullsystem", "md_region", "md_controls",
+		"md_format", "md_genre", "md_players", "md_comment", "md_firstrelease", "md_lastplayed", "md_playcount"
 	};
 
 	for(unsigned int i = 0; i < values.size(); i++)
@@ -268,11 +271,12 @@ void VideoGameListView::initMDValues()
 	mPublisher.setFont(defaultFont);
 	mFullSystem.setFont(defaultFont);
 	mRegion.setFont(defaultFont);
-	mFeatures.setFont(defaultFont);
+	mControls.setFont(defaultFont);
+	mFormat.setFont(defaultFont);
 	mGenre.setFont(defaultFont);
 	mPlayers.setFont(defaultFont);
 	mComment.setFont(defaultFont);
-	mRom.setFont(defaultFont);
+	mFirstRelease.setFont(defaultFont);
 	mLastPlayed.setFont(defaultFont);
 	mPlayCount.setFont(defaultFont);
 
@@ -335,11 +339,12 @@ void VideoGameListView::updateInfoPanel()
 		mPublisher.setValue(file->metadata.get("publisher"));
 		mFullSystem.setValue(file->metadata.get("fullsystem"));
 		mRegion.setValue(file->metadata.get("region"));
-		mFeatures.setValue(file->metadata.get("features"));
+		mControls.setValue(file->metadata.get("controls"));
+		mFormat.setValue(file->metadata.get("format"));
 		mGenre.setValue(file->metadata.get("genre"));
 		mPlayers.setValue(file->metadata.get("players"));
 		mComment.setValue(file->metadata.get("comment"));
-		mRom.setValue(file->metadata.get("rom"));
+		mFirstRelease.setValue(file->metadata.get("firstrelease"));
 		mName.setValue(file->metadata.get("name"));
 
 		if(file->getType() == GAME)
@@ -450,11 +455,12 @@ std::vector<TextComponent*> VideoGameListView::getMDLabels()
 	ret.push_back(&mLblPublisher);
 	ret.push_back(&mLblFullSystem);
 	ret.push_back(&mLblRegion);
-	ret.push_back(&mLblFeatures);
+	ret.push_back(&mLblControls);
+	ret.push_back(&mLblFormat);
 	ret.push_back(&mLblGenre);
 	ret.push_back(&mLblPlayers);
 	ret.push_back(&mLblComment);
-	ret.push_back(&mLblRom);
+	ret.push_back(&mLblFirstRelease);
 	ret.push_back(&mLblLastPlayed);
 	ret.push_back(&mLblPlayCount);
 	return ret;
@@ -469,11 +475,12 @@ std::vector<GuiComponent*> VideoGameListView::getMDValues()
 	ret.push_back(&mPublisher);
 	ret.push_back(&mFullSystem);
 	ret.push_back(&mRegion);
-	ret.push_back(&mFeatures);
+	ret.push_back(&mControls);
+	ret.push_back(&mFormat);
 	ret.push_back(&mGenre);
 	ret.push_back(&mPlayers);
 	ret.push_back(&mComment);
-	ret.push_back(&mRom);
+	ret.push_back(&mFirstRelease);
 	ret.push_back(&mLastPlayed);
 	ret.push_back(&mPlayCount);
 	return ret;
