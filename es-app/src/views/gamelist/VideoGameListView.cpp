@@ -144,8 +144,8 @@ VideoGameListView::VideoGameListView(Window* window, FileData* root) :
 	addChild(&mLblComment);
 	addChild(&mComment);
 	mLblFirstRelease.setText("First Release Date: ");
-	addChild(&mLblRom);
-	addChild(&mRom);
+	addChild(&mLblFirstRelease);
+	addChild(&mFirstRelease);
 	mLblLastPlayed.setText("Last played: ");
 	addChild(&mLblLastPlayed);
 	mLastPlayed.setDisplayRelative(true);
