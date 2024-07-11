@@ -22,11 +22,12 @@ MetaDataDecl gameDecls[] = {
 	{"publisher",   	MD_STRING,              "",                 false,      "publisher",            "enter publisher"},
 	{"fullsystem",    	MD_STRING,              "",                 false,      "system",           	"enter system"},
 	{"region",      	MD_STRING,              "",                 false,      "region",               "enter region"},
-	{"features", 		MD_STRING,              "",                 false,      "features",          	"enter features"},
+	{"controls", 		MD_STRING,              "",                 false,      "controls",          	"enter controls"},
+	{"format", 		MD_STRING,              "",                 false,      "format",          	"enter format"},
 	{"genre",       	MD_STRING,              "",                 false,      "genre",                "enter genre"},
 	{"players",     	MD_STRING,              "",                 false,      "players",              "enter number of players"},
 	{"comment",     	MD_STRING,              "",                 false,      "comment",              "enter comment"},
-	{"rom",     		MD_STRING,              "",                 false,      "rom info",             "enter rom info"},
+	{"firstrelease",     	MD_STRING,              "",                 false,      "first release",        "enter first release date"},
 	{"favorite",    	MD_BOOL,                "false",            false,      "favorite",             "enter favorite off/on"},
 	{"hidden",      	MD_BOOL,                "false",            false,      "hidden",               "enter hidden off/on" },
 	{"kidgame",     	MD_BOOL,                "false",            false,      "kidgame",              "enter kidgame off/on" },
@@ -52,11 +53,12 @@ MetaDataDecl folderDecls[] = {
 	{"publisher",   	MD_STRING,              "",                 false,      "publisher",            "enter publisher"},
 	{"fullsystem",		MD_STRING,              "",                 false,      "system",        	"enter system"},
 	{"region",      	MD_STRING,              "",                 false,      "region",               "enter region"},
-	{"features", 		MD_STRING,              "",                 false,      "features",          	"enter features"},
+	{"controls", 		MD_STRING,              "",                 false,      "controls",          	"enter controls"},
+	{"format", 		MD_STRING,              "",                 false,      "format",          	"enter format"},
 	{"genre",       	MD_STRING,              "",                 false,      "genre",                "enter genre"},
 	{"players",     	MD_STRING,              "",                 false,      "players",              "enter number of players"},
 	{"comment",     	MD_STRING,              "",                 false,      "comment",              "enter comment"},
-	{"rom",     		MD_STRING,              "",                 false,      "rom info",             "enter rom info"}
+	{"firstrelease",     	MD_STRING,              "",                 false,      "first release",        "enter first release date"}
 };
 const std::vector<MetaDataDecl> folderMDD(folderDecls, folderDecls + sizeof(folderDecls) / sizeof(folderDecls[0]));
 
