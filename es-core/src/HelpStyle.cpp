@@ -34,5 +34,5 @@ void HelpStyle::applyTheme(const std::shared_ptr<ThemeData>& theme, const std::s
 		iconColor = elem->get<unsigned int>("iconColor");
 
 	if(elem->has("fontPath"))
-		font = Font::getFromTheme(elem, ThemeFlags::ALL, font);
+		font = Font::getFromTheme(elem, ThemeFlags::ALL, fontPath);
 }
