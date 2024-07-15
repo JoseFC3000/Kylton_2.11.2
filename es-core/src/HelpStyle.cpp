@@ -8,7 +8,6 @@ HelpStyle::HelpStyle()
 	origin = Vector2f(0.5f, 0.5f);
 	iconColor = 0x969696FF;
 	textColor = 0x969696FF;
-	font = Font::getDefaultPath;
 
 	if(FONT_SIZE_SMALL != 0)
 		font = Font::get(FONT_SIZE_HELP);
