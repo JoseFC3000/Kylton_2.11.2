@@ -8,6 +8,7 @@ HelpStyle::HelpStyle()
 	origin = Vector2f(0.5f, 0.5f);
 	iconColor = 0x969696FF;
 	textColor = 0x969696FF;
+	fontPath = "/opt/retropie/configs/all/emulationstation/theme_resources/font/sd-din_condensed.otf"
 
 	if(FONT_SIZE_SMALL != 0)
 		font = Font::get(FONT_SIZE_HELP);
