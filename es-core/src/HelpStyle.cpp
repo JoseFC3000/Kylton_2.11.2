@@ -6,8 +6,8 @@ HelpStyle::HelpStyle()
 {
 	position = Vector2f(Renderer::getScreenWidth() * 0.5f, Renderer::getScreenHeight() * 0.97f);
 	origin = Vector2f(0.5f, 0.5f);
-	iconColor = 0xB7B7B7;
-	textColor = 0xB7B7B7;
+	iconColor = 0xB7B7B7FF;
+	textColor = 0xB7B7B7FF;
 
 	if(FONT_SIZE_SMALL != 0)
 		font = Font::get(FONT_SIZE_SMALL);
