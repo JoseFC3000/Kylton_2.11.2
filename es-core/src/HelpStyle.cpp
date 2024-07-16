@@ -4,13 +4,13 @@
 
 HelpStyle::HelpStyle()
 {
-	position = Vector2f(Renderer::getScreenWidth() * 0.5f, Renderer::getScreenHeight() * 0.967f);
+	position = Vector2f(Renderer::getScreenWidth() * 0.5f, Renderer::getScreenHeight() * 0.97f);
 	origin = Vector2f(0.5f, 0.5f);
-	iconColor = 0x969696FF;
-	textColor = 0x969696FF;
+	iconColor = 0xB7B7B7;
+	textColor = 0xB7B7B7;
 
 	if(FONT_SIZE_SMALL != 0)
-		font = Font::get(FONT_SIZE_HELP);
+		font = Font::get(FONT_SIZE_SMALL);
 	else
 		font = nullptr;
 }
