@@ -14,16 +14,19 @@
 GridGameListView::GridGameListView(Window* window, FileData* root) :
 	ISimpleGameListView(window, root),
 	mGrid(window), mMarquee(window),
+	mScreenshot(window),
 	mImage(window),
+	mImage1(window),
+	mImage2(window),
 	mVideo(nullptr),
 	mVideoPlaying(false),
 	mDescContainer(window, DESCRIPTION_SCROLL_DELAY), mDescription(window),
 
-	mLblRating(window), mLblReleaseDate(window), mLblDeveloper(window), mLblPublisher(window),
-	mLblGenre(window), mLblPlayers(window), mLblLastPlayed(window), mLblPlayCount(window),
+	mLblRating(window), mLblReleaseDate(window), mLblDeveloper(window), mLblPublisher(window), mLblFullSystem(window), mLblRegion(window), mLblControls(window),
+	mLblFormat(window), mLblGenre(window), mLblPlayers(window), mLblComment(window), mLblFirstRelease(window), mLblLastPlayed(window), mLblPlayCount(window),
 
-	mRating(window), mReleaseDate(window), mDeveloper(window), mPublisher(window),
-	mGenre(window), mPlayers(window), mLastPlayed(window), mPlayCount(window),
+	mRating(window), mReleaseDate(window), mDeveloper(window), mPublisher(window), mFullSystem(window), mRegion(window), mControls(window), mFormat(window),
+	mGenre(window), mPlayers(window), mComment(window), mFirstRelease(window), mLastPlayed(window), mPlayCount(window),
 	mName(window)
 {
 	const float padding = 0.01f;
@@ -49,7 +52,7 @@ GridGameListView::GridGameListView(Window* window, FileData* root) :
 	mLblRating.setText("Rating: ");
 	addChild(&mLblRating);
 	addChild(&mRating);
-	mLblReleaseDate.setText("Released: ");
+	mLblReleaseDate.setText("Release Date: ");
 	addChild(&mLblReleaseDate);
 	addChild(&mReleaseDate);
 	mLblDeveloper.setText("Developer: ");
@@ -58,12 +61,30 @@ GridGameListView::GridGameListView(Window* window, FileData* root) :
 	mLblPublisher.setText("Publisher: ");
 	addChild(&mLblPublisher);
 	addChild(&mPublisher);
+	mLblFullSystem.setText("System: ");
+	addChild(&mLblFullSystem);
+	addChild(&mFullSystem);
+	mLblRegion.setText("Region: ");
+	addChild(&mLblRegion);
+	addChild(&mRegion);
+	mLblControls.setText("Controls: ");
+	addChild(&mLblControls);
+	addChild(&mControls);
+	mLblFormat.setText("Format: ");
+	addChild(&mLblFormat);
+	addChild(&mFormat);
 	mLblGenre.setText("Genre: ");
 	addChild(&mLblGenre);
 	addChild(&mGenre);
 	mLblPlayers.setText("Players: ");
 	addChild(&mLblPlayers);
 	addChild(&mPlayers);
+	mLblComment.setText("Comment: ");
+	addChild(&mLblComment);
+	addChild(&mComment);
+	mLblFirstRelease.setText("First Release Date: ");
+	addChild(&mLblFirstRelease);
+	addChild(&mFirstRelease);
 	mLblLastPlayed.setText("Last played: ");
 	addChild(&mLblLastPlayed);
 	mLastPlayed.setDisplayRelative(true);
@@ -98,6 +119,24 @@ GridGameListView::GridGameListView(Window* window, FileData* root) :
 	mImage.setVisible(false);
 	addChild(&mImage);
 
+	// Image 1
+	// Default to off the screen
+	mImage1.setOrigin(0.5f, 0.5f);
+	mImage1.setPosition(2.0f, 2.0f);
+	mImage1.setMaxSize(mSize.x(), mSize.y());
+	mImage1.setDefaultZIndex(30);
+	mImage1.setVisible(false);
+	addChild(&mImage1);
+		
+	// Image 2
+	// Default to off the screen
+	mImage2.setOrigin(0.5f, 0.5f);
+	mImage2.setPosition(2.0f, 2.0f);
+	mImage2.setMaxSize(mSize.x(), mSize.y());
+	mImage2.setDefaultZIndex(30);
+	mImage2.setVisible(false);
+	addChild(&mImage2);
+
 	// Video
 	// Default to off the screen
 	mVideo->setOrigin(0.5f, 0.5f);
@@ -115,6 +154,15 @@ GridGameListView::GridGameListView(Window* window, FileData* root) :
 	mMarquee.setDefaultZIndex(35);
 	mMarquee.setVisible(false);
 	addChild(&mMarquee);
+
+	// Screenshot
+	// Default to off the screen
+	mScreenshot.setOrigin(0.5f, 0.5f);
+	mScreenshot.setPosition(2.0f, 2.0f);
+	mScreenshot.setMaxSize(mSize.x(), mSize.y());
+	mScreenshot.setDefaultZIndex(35);
+	mScreenshot.setVisible(false);
+	addChild(&mScreenshot);
 
 	initMDLabels();
 	initMDValues();
@@ -196,15 +244,18 @@ void GridGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& theme)
 	mGrid.applyTheme(theme, getName(), "gamegrid", ALL);
 	mName.applyTheme(theme, getName(), "md_name", ALL);
 	mMarquee.applyTheme(theme, getName(), "md_marquee", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION | VISIBLE);
+	mScreenshot.applyTheme(theme, getName(), "md_screenshot", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION | VISIBLE);
 	mImage.applyTheme(theme, getName(), "md_image", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION | VISIBLE);
+	mImage1.applyTheme(theme, getName(), "md_image1", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION | VISIBLE);
+	mImage2.applyTheme(theme, getName(), "md_image2", POSITION | ThemeFlags::SIZE | Z_INDEX | ROTATION | VISIBLE);
 	mVideo->applyTheme(theme, getName(), "md_video", POSITION | ThemeFlags::SIZE | ThemeFlags::DELAY | Z_INDEX | ROTATION | VISIBLE);
 
 	initMDLabels();
 	std::vector<TextComponent*> labels = getMDLabels();
-	assert(labels.size() == 8);
-	const char* lblElements[8] = {
-			"md_lbl_rating", "md_lbl_releasedate", "md_lbl_developer", "md_lbl_publisher",
-			"md_lbl_genre", "md_lbl_players", "md_lbl_lastplayed", "md_lbl_playcount"
+	assert(labels.size() == 14);
+	const char* lblElements[14] = {
+			"md_lbl_rating", "md_lbl_releasedate", "md_lbl_developer", "md_lbl_publisher", "md_lbl_fullsystem", "md_lbl_region", "md_lbl_controls",
+			"md_lbl_format", "md_lbl_genre", "md_lbl_players", "md_lbl_comment", "md_lbl_firstrelease", "md_lbl_lastplayed", "md_lbl_playcount"
 	};
 
 	for(unsigned int i = 0; i < labels.size(); i++)
@@ -215,10 +266,10 @@ void GridGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& theme)
 
 	initMDValues();
 	std::vector<GuiComponent*> values = getMDValues();
-	assert(values.size() == 8);
-	const char* valElements[8] = {
-			"md_rating", "md_releasedate", "md_developer", "md_publisher",
-			"md_genre", "md_players", "md_lastplayed", "md_playcount"
+	assert(values.size() == 14);
+	const char* valElements[14] = {
+			"md_rating", "md_releasedate", "md_developer", "md_publisher", "md_fullsystem", "md_region", "md_controls",
+			"md_format", "md_genre", "md_players", "md_comment", "md_firstrelease", "md_lastplayed", "md_playcount"
 	};
 
 	for(unsigned int i = 0; i < values.size(); i++)
@@ -279,8 +330,14 @@ void GridGameListView::initMDValues()
 	mReleaseDate.setFont(defaultFont);
 	mDeveloper.setFont(defaultFont);
 	mPublisher.setFont(defaultFont);
+	mFullSystem.setFont(defaultFont);
+	mRegion.setFont(defaultFont);
+	mControls.setFont(defaultFont);
+	mFormat.setFont(defaultFont);
 	mGenre.setFont(defaultFont);
 	mPlayers.setFont(defaultFont);
+	mComment.setFont(defaultFont);
+	mFirstRelease.setFont(defaultFont);
 	mLastPlayed.setFont(defaultFont);
 	mPlayCount.setFont(defaultFont);
 
@@ -325,7 +382,10 @@ void GridGameListView::updateInfoPanel()
 
 		mVideo->setImage(file->getThumbnailPath());
 		mMarquee.setImage(file->getMarqueePath());
+		mScreenshot.setImage(file->getScreenshotPath());
 		mImage.setImage(file->getImagePath());
+		mImage1.setImage(file->getImage1Path());
+		mImage2.setImage(file->getImage2Path());
 
 		mDescription.setText(file->metadata.get("desc"));
 		mDescContainer.reset();
@@ -334,8 +394,14 @@ void GridGameListView::updateInfoPanel()
 		mReleaseDate.setValue(file->metadata.get("releasedate"));
 		mDeveloper.setValue(file->metadata.get("developer"));
 		mPublisher.setValue(file->metadata.get("publisher"));
+		mFullSystem.setValue(file->metadata.get("fullsystem"));
+		mRegion.setValue(file->metadata.get("region"));
+		mControls.setValue(file->metadata.get("controls"));
+		mFormat.setValue(file->metadata.get("format"));
 		mGenre.setValue(file->metadata.get("genre"));
 		mPlayers.setValue(file->metadata.get("players"));
+		mComment.setValue(file->metadata.get("comment"));
+		mFirstRelease.setValue(file->metadata.get("firstrelease"));
 		mName.setValue(file->metadata.get("name"));
 
 		if(file->getType() == GAME)
@@ -351,8 +417,11 @@ void GridGameListView::updateInfoPanel()
 	comps.push_back(&mDescription);
 	comps.push_back(&mName);
 	comps.push_back(&mMarquee);
+	comps.push_back(&mScreenshot);
 	comps.push_back(mVideo);
 	comps.push_back(&mImage);
+	comps.push_back(&mImage1);
+	comps.push_back(&mImage2);
 	std::vector<TextComponent*> labels = getMDLabels();
 	comps.insert(comps.cend(), labels.cbegin(), labels.cend());
 
@@ -395,11 +464,29 @@ void GridGameListView::launch(FileData* game)
 	{
 		target = Vector3f(mMarquee.getCenter().x(), mMarquee.getCenter().y(), 0);
 	}
+	else if(mScreenshot.hasImage() &&
+		(mScreenshot.getPosition().x() < screenWidth && mScreenshot.getPosition().x() > 0.0f &&
+		 mScreenshot.getPosition().y() < screenHeight && mScreenshot.getPosition().y() > 0.0f))
+	{
+		target = Vector3f(mScreenshot.getCenter().x(), mScreenshot.getCenter().y(), 0);
+	}
 	else if(mImage.hasImage() &&
 		(mImage.getPosition().x() < screenWidth && mImage.getPosition().x() > 2.0f &&
 		 mImage.getPosition().y() < screenHeight && mImage.getPosition().y() > 2.0f))
 	{
 		target = Vector3f(mImage.getCenter().x(), mImage.getCenter().y(), 0);
+	}
+	else if(mImage1.hasImage() &&
+		(mImage1.getPosition().x() < screenWidth && mImage1.getPosition().x() > 2.0f &&
+		 mImage1.getPosition().y() < screenHeight && mImage1.getPosition().y() > 2.0f))
+	{
+		target = Vector3f(mImage1.getCenter().x(), mImage1.getCenter().y(), 0);
+	}
+	else if(mImage2.hasImage() &&
+		(mImage2.getPosition().x() < screenWidth && mImage2.getPosition().x() > 2.0f &&
+		 mImage2.getPosition().y() < screenHeight && mImage2.getPosition().y() > 2.0f))
+	{
+		target = Vector3f(mImage2.getCenter().x(), mImage2.getCenter().y(), 0);
 	}
 	else if(mVideo->getPosition().x() < screenWidth && mVideo->getPosition().x() > 0.0f &&
 		 mVideo->getPosition().y() < screenHeight && mVideo->getPosition().y() > 0.0f)
@@ -449,8 +536,14 @@ std::vector<TextComponent*> GridGameListView::getMDLabels()
 	ret.push_back(&mLblReleaseDate);
 	ret.push_back(&mLblDeveloper);
 	ret.push_back(&mLblPublisher);
+	ret.push_back(&mLblFullSystem);
+	ret.push_back(&mLblRegion);
+	ret.push_back(&mLblControls);
+	ret.push_back(&mLblFormat);
 	ret.push_back(&mLblGenre);
 	ret.push_back(&mLblPlayers);
+	ret.push_back(&mLblComment);
+	ret.push_back(&mLblFirstRelease);
 	ret.push_back(&mLblLastPlayed);
 	ret.push_back(&mLblPlayCount);
 	return ret;
@@ -463,8 +556,14 @@ std::vector<GuiComponent*> GridGameListView::getMDValues()
 	ret.push_back(&mReleaseDate);
 	ret.push_back(&mDeveloper);
 	ret.push_back(&mPublisher);
+	ret.push_back(&mFullSystem);
+	ret.push_back(&mRegion);
+	ret.push_back(&mControls);
+	ret.push_back(&mFormat);
 	ret.push_back(&mGenre);
 	ret.push_back(&mPlayers);
+	ret.push_back(&mComment);
+	ret.push_back(&mFirstRelease);
 	ret.push_back(&mLastPlayed);
 	ret.push_back(&mPlayCount);
 	return ret;
