@@ -48,18 +48,27 @@ private:
 	void initMDLabels();
 	void initMDValues();
 
-	TextComponent mLblRating, mLblReleaseDate, mLblDeveloper, mLblPublisher, mLblGenre, mLblPlayers, mLblLastPlayed, mLblPlayCount;
+	TextComponent mLblRating, mLblReleaseDate, mLblDeveloper, mLblPublisher, mLblFullSystem, mLblRegion, mLblControls, mLblFormat, mLblGenre, mLblPlayers, mLblComment, mLblFirstRelease, mLblLastPlayed, mLblPlayCount;
 
 	ImageComponent mMarquee;
+	ImageComponent mScreenshot;
 	VideoComponent* mVideo;
 	bool mVideoPlaying;
 	ImageComponent mImage;
+	ImageComponent mImage1;
+	ImageComponent mImage2;
 	RatingComponent mRating;
 	DateTimeComponent mReleaseDate;
 	TextComponent mDeveloper;
 	TextComponent mPublisher;
+	TextComponent mFullSystem;
+	TextComponent mRegion;
+	TextComponent mControls;
+	TextComponent mFormat;
 	TextComponent mGenre;
 	TextComponent mPlayers;
+	TextComponent mComment;
+	TextComponent mFirstRelease;
 	DateTimeComponent mLastPlayed;
 	TextComponent mPlayCount;
 	TextComponent mName;
