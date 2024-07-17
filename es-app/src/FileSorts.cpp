@@ -10,7 +10,7 @@ namespace FileSorts
 	const FileData::SortType typesArr[] = {
 		FileData::SortType(&compareName, true, "name"),
 
-		FileData::SortType(&compareReleaseDate, true, "release date"),
+		FileData::SortType(&compareFirstRelease, true, " first release date"),
 	};
 
 	const std::vector<FileData::SortType> SortTypes(typesArr, typesArr + sizeof(typesArr)/sizeof(typesArr[0]));
@@ -37,7 +37,7 @@ namespace FileSorts
 	{
 		// since it's stored as an ISO string (YYYYMMDDTHHMMSS), we can compare as a string
 		// as it's a lot faster than the time casts and then time comparisons
-		return (file1)->metadata.get("releasedate") < (file2)->metadata.get("releasedate");
+		return (file1)->metadata.get("firstrelease") < (file2)->metadata.get("firstrelease");
 	}
 
 	//If option is enabled, ignore leading articles by temporarily modifying the name prior to sorting
