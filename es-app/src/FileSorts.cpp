@@ -33,7 +33,7 @@ namespace FileSorts
 		return name1.compare(name2) < 0;
 	}
 
-	bool compareReleaseDate(const FileData* file1, const FileData* file2)
+	bool compareFirstRelease(const FileData* file1, const FileData* file2)
 	{
 		// since it's stored as an ISO string (YYYYMMDDTHHMMSS), we can compare as a string
 		// as it's a lot faster than the time casts and then time comparisons
