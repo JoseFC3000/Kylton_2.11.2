@@ -44,7 +44,7 @@ private:
 	TextComponent mLblRating, mLblReleaseDate, mLblDeveloper, mLblPublisher, mLblFullSystem, mLblRegion, mLblControls, mLblFormat, mLblGenre, mLblPlayers, mLblComment, mLblFirstRelease, mLblLastPlayed, mLblPlayCount;
 
 	RatingComponent mRating;
-	DateTimeComponent mReleaseDate;
+	DateTimeComponent mFirstRelease;
 	TextComponent mDeveloper;
 	TextComponent mPublisher;
 	TextComponent mFullSystem;
@@ -54,7 +54,7 @@ private:
 	TextComponent mGenre;
 	TextComponent mPlayers;
 	TextComponent mComment;
-	TextComponent mFirstRelease;
+	TextComponent mReleaseDate;
 	DateTimeComponent mLastPlayed;
 	TextComponent mPlayCount;
 	TextComponent mName;
