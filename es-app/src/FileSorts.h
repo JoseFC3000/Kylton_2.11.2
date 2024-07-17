@@ -10,7 +10,7 @@ namespace FileSorts
 	bool compareName(const FileData* file1, const FileData* file2);
 	bool compareFullSystem(const FileData* file1, const FileData* file2);
 	bool comparePublisher(const FileData* file1, const FileData* file2);
-	bool compareReleaseDate(const FileData* file1, const FileData* file2);
+	bool compareFirstRelease(const FileData* file1, const FileData* file2);
 	bool compareGenre(const FileData* file1, const FileData* file2);
 	bool compareNumPlayers(const FileData* file1, const FileData* file2);
 	bool compareRegion(const FileData* file1, const FileData* file2);
