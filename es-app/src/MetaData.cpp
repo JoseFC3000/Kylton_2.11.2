@@ -17,7 +17,7 @@ MetaDataDecl gameDecls[] = {
 	{"screenshot",     	MD_PATH,                "",                 false,      "screenshot",           "enter path to screenshot"},
 	{"thumbnail",   	MD_PATH,                "",                 false,      "thumbnail",            "enter path to thumbnail"},
 	{"rating",      	MD_RATING,              "0.000000",         false,      "rating",               "enter rating"},
-	{"releasedate", 	MD_DATE,              	"",		    false,      "release date",         "enter release date"},
+	{"releasedate", 	MD_STRING,              "",		    false,      "release date",         "enter release date"},
 	{"developer",   	MD_STRING,              "",                 false,      "developer",        	"enter developer"},
 	{"publisher",   	MD_STRING,              "",                 false,      "publisher",            "enter publisher"},
 	{"fullsystem",    	MD_STRING,              "",                 false,      "system",           	"enter system"},
@@ -27,7 +27,7 @@ MetaDataDecl gameDecls[] = {
 	{"genre",       	MD_STRING,              "",                 false,      "genre",                "enter genre"},
 	{"players",     	MD_STRING,              "",                 false,      "players",              "enter number of players"},
 	{"comment",     	MD_STRING,              "",                 false,      "comment",              "enter comment"},
-	{"firstrelease",     	MD_STRING,              "",                 false,      "first release",        "enter first release date"},
+	{"firstrelease",     	MD_DATE,              	"",                 false,      "first release",        "enter first release date"},
 	{"favorite",    	MD_BOOL,                "false",            false,      "favorite",             "enter favorite off/on"},
 	{"hidden",      	MD_BOOL,                "false",            false,      "hidden",               "enter hidden off/on" },
 	{"kidgame",     	MD_BOOL,                "false",            false,      "kidgame",              "enter kidgame off/on" },
@@ -48,7 +48,7 @@ MetaDataDecl folderDecls[] = {
 	{"marquee",     	MD_PATH,                "",                 false,      "marquee",           	"enter path to marquee"},
 	{"screenshot",     	MD_PATH,                "",                 false,      "screenshot",           "enter path to screenshot"},
 	{"rating",      	MD_RATING,              "0.000000",         false,      "rating",               "enter rating"},
-	{"releasedate", 	MD_DATE,                "",                 false,      "release date",         "enter release date"},
+	{"releasedate", 	MD_STRING,              "",                 false,      "release date",         "enter release date"},
 	{"developer",   	MD_STRING,              "",                 false,      "developer",        	"enter developer"},
 	{"publisher",   	MD_STRING,              "",                 false,      "publisher",            "enter publisher"},
 	{"fullsystem",		MD_STRING,              "",                 false,      "system",        	"enter system"},
@@ -58,7 +58,7 @@ MetaDataDecl folderDecls[] = {
 	{"genre",       	MD_STRING,              "",                 false,      "genre",                "enter genre"},
 	{"players",     	MD_STRING,              "",                 false,      "players",              "enter number of players"},
 	{"comment",     	MD_STRING,              "",                 false,      "comment",              "enter comment"},
-	{"firstrelease",     	MD_STRING,              "",                 false,      "first release",        "enter first release date"}
+	{"firstrelease",     	MD_DATE,              	"",                 false,      "first release",        "enter first release date"}
 };
 const std::vector<MetaDataDecl> folderMDD(folderDecls, folderDecls + sizeof(folderDecls) / sizeof(folderDecls[0]));
 
