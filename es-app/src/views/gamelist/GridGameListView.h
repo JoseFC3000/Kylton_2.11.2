@@ -58,7 +58,7 @@ private:
 	ImageComponent mImage1;
 	ImageComponent mImage2;
 	RatingComponent mRating;
-	DateTimeComponent mReleaseDate;
+	DateTimeComponent mFirstRelease;
 	TextComponent mDeveloper;
 	TextComponent mPublisher;
 	TextComponent mFullSystem;
@@ -68,7 +68,7 @@ private:
 	TextComponent mGenre;
 	TextComponent mPlayers;
 	TextComponent mComment;
-	TextComponent mFirstRelease;
+	TextComponent mReleaseDate;
 	DateTimeComponent mLastPlayed;
 	TextComponent mPlayCount;
 	TextComponent mName;
