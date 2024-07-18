@@ -24,10 +24,10 @@ VideoGameListView::VideoGameListView(Window* window, FileData* root) :
 	mVideoPlaying(false),
 
 	mLblRating(window), mLblReleaseDate(window), mLblDeveloper(window), mLblPublisher(window), mLblFullSystem(window), mLblRegion(window), mLblControls(window),
-	mLblFormat(window), mLblGenre(window), mLblPlayers(window), mLblComment(window), mLblFirstRelease(window), mLblLastPlayed(window), mLblPlayCount(window),
+	mLblFormat(window), mLblGenre(window), mLblPlayers(window), mLblComment(window), mLblFirstRelease(window), mLblFirstReleaseShow(window), mLblLastPlayed(window), mLblPlayCount(window),
 
 	mRating(window), mReleaseDate(window), mDeveloper(window), mPublisher(window), mFullSystem(window), mRegion(window), mControls(window), mFormat(window),
-	mGenre(window), mPlayers(window), mComment(window), mFirstRelease(window), mLastPlayed(window), mPlayCount(window),
+	mGenre(window), mPlayers(window), mComment(window), mFirstRelease(window), mFirstReleaseShow(window), mLastPlayed(window), mPlayCount(window),
 	mName(window)
 {
 	const float padding = 0.01f;
@@ -146,6 +146,9 @@ VideoGameListView::VideoGameListView(Window* window, FileData* root) :
 	mLblFirstRelease.setText("First Release Date: ");
 	addChild(&mLblFirstRelease);
 	addChild(&mFirstRelease);
+	mLblFirstReleaseShow.setText("First Release Date Show: ");
+	addChild(&mLblFirstReleaseShow);
+	addChild(&mFirstReleaseShow);
 	mLblLastPlayed.setText("Last played: ");
 	addChild(&mLblLastPlayed);
 	mLastPlayed.setDisplayRelative(true);
@@ -196,10 +199,10 @@ void VideoGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& theme)
 
 	initMDLabels();
 	std::vector<TextComponent*> labels = getMDLabels();
-	assert(labels.size() == 14);
-	const char* lblElements[14] = {
+	assert(labels.size() == 15);
+	const char* lblElements[15] = {
 		"md_lbl_rating", "md_lbl_releasedate", "md_lbl_developer", "md_lbl_publisher", "md_lbl_fullsystem", "md_lbl_region", "md_lbl_controls",
-		"md_lbl_format", "md_lbl_genre", "md_lbl_players", "md_lbl_comment", "md_lbl_firstrelease", "md_lbl_lastplayed", "md_lbl_playcount"
+		"md_lbl_format", "md_lbl_genre", "md_lbl_players", "md_lbl_comment", "md_lbl_firstrelease", "md_lbl_firstreleaseshow", "md_lbl_lastplayed", "md_lbl_playcount"
 	};
 
 	for(unsigned int i = 0; i < labels.size(); i++)
@@ -210,10 +213,10 @@ void VideoGameListView::onThemeChanged(const std::shared_ptr<ThemeData>& theme)
 
 	initMDValues();
 	std::vector<GuiComponent*> values = getMDValues();
-	assert(values.size() == 14);
-	const char* valElements[14] = {
+	assert(values.size() == 15);
+	const char* valElements[15] = {
 		"md_rating", "md_releasedate", "md_developer", "md_publisher", "md_fullsystem", "md_region", "md_controls",
-		"md_format", "md_genre", "md_players", "md_comment", "md_firstrelease", "md_lastplayed", "md_playcount"
+		"md_format", "md_genre", "md_players", "md_comment", "md_firstrelease", "md_firstreleaseshow", "md_lastplayed", "md_playcount"
 	};
 
 	for(unsigned int i = 0; i < values.size(); i++)
@@ -277,6 +280,7 @@ void VideoGameListView::initMDValues()
 	mPlayers.setFont(defaultFont);
 	mComment.setFont(defaultFont);
 	mFirstRelease.setFont(defaultFont);
+	mFirstReleaseShow.setFont(defaultFont);
 	mLastPlayed.setFont(defaultFont);
 	mPlayCount.setFont(defaultFont);
 
@@ -345,6 +349,7 @@ void VideoGameListView::updateInfoPanel()
 		mPlayers.setValue(file->metadata.get("players"));
 		mComment.setValue(file->metadata.get("comment"));
 		mFirstRelease.setValue(file->metadata.get("firstrelease"));
+		mFirstReleaseShow.setValue(file->metadata.get("firstreleaseshow"));
 		mName.setValue(file->metadata.get("name"));
 
 		if(file->getType() == GAME)
@@ -461,6 +466,7 @@ std::vector<TextComponent*> VideoGameListView::getMDLabels()
 	ret.push_back(&mLblPlayers);
 	ret.push_back(&mLblComment);
 	ret.push_back(&mLblFirstRelease);
+	ret.push_back(&mLblFirstReleaseShow);
 	ret.push_back(&mLblLastPlayed);
 	ret.push_back(&mLblPlayCount);
 	return ret;
@@ -481,6 +487,7 @@ std::vector<GuiComponent*> VideoGameListView::getMDValues()
 	ret.push_back(&mPlayers);
 	ret.push_back(&mComment);
 	ret.push_back(&mFirstRelease);
+	ret.push_back(&mFirstReleaseShow);
 	ret.push_back(&mLastPlayed);
 	ret.push_back(&mPlayCount);
 	return ret;
