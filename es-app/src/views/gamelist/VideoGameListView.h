@@ -41,10 +41,11 @@ private:
 	ImageComponent mImage1;
 	ImageComponent mImage2;
 
-	TextComponent mLblRating, mLblReleaseDate, mLblDeveloper, mLblPublisher, mLblFullSystem, mLblRegion, mLblControls, mLblFormat, mLblGenre, mLblPlayers, mLblComment, mLblFirstRelease, mLblLastPlayed, mLblPlayCount;
+	TextComponent mLblRating, mLblReleaseDate, mLblDeveloper, mLblPublisher, mLblFullSystem, mLblRegion, mLblControls, mLblFormat, mLblGenre, mLblPlayers, mLblComment, mLblFirstRelease, mLblFirstReleaseShow, mLblLastPlayed, mLblPlayCount;
 
 	RatingComponent mRating;
-	DateTimeComponent mFirstRelease;
+	TextComponent mFirstRelease;
+	TextComponent mFirstReleaseShow;
 	TextComponent mDeveloper;
 	TextComponent mPublisher;
 	TextComponent mFullSystem;
