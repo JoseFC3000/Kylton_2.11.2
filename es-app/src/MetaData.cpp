@@ -27,7 +27,8 @@ MetaDataDecl gameDecls[] = {
 	{"genre",       	MD_STRING,              "",                 false,      "genre",                "enter genre"},
 	{"players",     	MD_STRING,              "",                 false,      "players",              "enter number of players"},
 	{"comment",     	MD_STRING,              "",                 false,      "comment",              "enter comment"},
-	{"firstrelease",     	MD_DATE,              	"",                 false,      "first release",        "enter first release date"},
+	{"firstrelease",    	MD_STRING,              "",                 false,      "first release",   	"enter first release date"},
+	{"firstreleaseshow",    MD_STRING,              "",                 false,      "first release show",  	"enter first release date show"},
 	{"favorite",    	MD_BOOL,                "false",            false,      "favorite",             "enter favorite off/on"},
 	{"hidden",      	MD_BOOL,                "false",            false,      "hidden",               "enter hidden off/on" },
 	{"kidgame",     	MD_BOOL,                "false",            false,      "kidgame",              "enter kidgame off/on" },
@@ -58,7 +59,8 @@ MetaDataDecl folderDecls[] = {
 	{"genre",       	MD_STRING,              "",                 false,      "genre",                "enter genre"},
 	{"players",     	MD_STRING,              "",                 false,      "players",              "enter number of players"},
 	{"comment",     	MD_STRING,              "",                 false,      "comment",              "enter comment"},
-	{"firstrelease",     	MD_DATE,              	"",                 false,      "first release",        "enter first release date"}
+	{"firstrelease",     	MD_STRING,              "",                 false,      "first release",        "enter first release date"},
+	{"firstreleaseshow",    MD_STRING,             	"",                 false,      "first release show",    "enter first release date show"}
 };
 const std::vector<MetaDataDecl> folderMDD(folderDecls, folderDecls + sizeof(folderDecls) / sizeof(folderDecls[0]));
 
