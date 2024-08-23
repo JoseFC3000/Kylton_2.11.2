@@ -10,7 +10,7 @@ namespace FileSorts
 	const FileData::SortType typesArr[] = {
 		FileData::SortType(&compareName, true, "name"),
 
-		FileData::SortType(&compareFirstRelease, true, " first release date"),
+		FileData::SortType(&compareFirstRelease, true, "first release date"),
 	};
 
 	const std::vector<FileData::SortType> SortTypes(typesArr, typesArr + sizeof(typesArr)/sizeof(typesArr[0]));
