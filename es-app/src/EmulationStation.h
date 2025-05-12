@@ -6,7 +6,7 @@
 // Do this version number update as the very last commit for the new release version.
 #define PROGRAM_VERSION_MAJOR       2
 #define PROGRAM_VERSION_MINOR        11
-#define PROGRAM_VERSION_MAINTENANCE  1
+#define PROGRAM_VERSION_MAINTENANCE  2
 #define PROGRAM_VERSION_STRING "2.11.2rp"
 
 #define PROGRAM_BUILT_STRING __DATE__ " - " __TIME__
