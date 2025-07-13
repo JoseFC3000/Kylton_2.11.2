@@ -370,13 +370,11 @@ void GuiMenu::openUISettings()
 	// show help
 	auto show_help = std::make_shared<SwitchComponent>(mWindow);
 	show_help->setState(Settings::getInstance()->getBool("ShowHelpPrompts"));
-	s->addWithLabel("ON-SCREEN HELP", show_help);
 	s->addSaveFunc([show_help] { Settings::getInstance()->setBool("ShowHelpPrompts", show_help->getState()); });
 
 	// enable filters (ForceDisableFilters)
 	auto enable_filter = std::make_shared<SwitchComponent>(mWindow);
 	enable_filter->setState(!Settings::getInstance()->getBool("ForceDisableFilters"));
-	s->addWithLabel("ENABLE FILTERS", enable_filter);
 	s->addSaveFunc([enable_filter] {
 		bool filter_is_enabled = !Settings::getInstance()->getBool("ForceDisableFilters");
 		Settings::getInstance()->setBool("ForceDisableFilters", !enable_filter->getState());
@@ -386,7 +384,6 @@ void GuiMenu::openUISettings()
 	// hide start menu in Kid Mode
 	auto disable_start = std::make_shared<SwitchComponent>(mWindow);
 	disable_start->setState(Settings::getInstance()->getBool("DisableKidStartMenu"));
-	s->addWithLabel("DISABLE START MENU IN KID MODE", disable_start);
 	s->addSaveFunc([disable_start] { Settings::getInstance()->setBool("DisableKidStartMenu", disable_start->getState()); });
 
 	mWindow->pushGui(s);
@@ -546,7 +543,6 @@ void GuiMenu::openQuitMenu()
 				row.makeAcceptInputHandler(quit_es_fx);
 			}
 			row.addElement(std::make_shared<TextComponent>(window, "QUIT EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
-			s->addRow(row);
 		}
 	}
 
