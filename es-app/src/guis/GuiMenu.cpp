@@ -36,6 +36,8 @@ GuiMenu::GuiMenu(Window* window) : GuiComponent(window), mMenu(window, "MAIN MEN
 		addEntry("CONFIGURE INPUT", 0x777777FF, true, [this] { openConfigInput(); });
 	} else {
 		addEntry("SOUND SETTINGS", 0x777777FF, true, [this] { openSoundSettings(); });
+		addEntry("UI SETTINGS", 0x777777FF, true, [this] { openUISettings(); });
+		addEntry("CONFIGURE INPUT", 0x777777FF, true, [this] { openConfigInput(); });
 	}
 
 	addEntry("QUIT", 0x777777FF, true, [this] {openQuitMenu(); });
