@@ -226,18 +226,15 @@ void GuiMenu::openUISettings()
 	screensaver_row.addElement(std::make_shared<TextComponent>(mWindow, "SCREENSAVER SETTINGS", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 	screensaver_row.addElement(makeArrow(mWindow), false);
 	screensaver_row.makeAcceptInputHandler(std::bind(&GuiMenu::openScreensaverOptions, this));
-	s->addRow(screensaver_row);
 
 	// quick system select (left/right in game list view)
 	auto quick_sys_select = std::make_shared<SwitchComponent>(mWindow);
 	quick_sys_select->setState(Settings::getInstance()->getBool("QuickSystemSelect"));
-	s->addWithLabel("QUICK SYSTEM SELECT", quick_sys_select);
 	s->addSaveFunc([quick_sys_select] { Settings::getInstance()->setBool("QuickSystemSelect", quick_sys_select->getState()); });
 
 	// carousel transition option
 	auto move_carousel = std::make_shared<SwitchComponent>(mWindow);
 	move_carousel->setState(Settings::getInstance()->getBool("MoveCarousel"));
-	s->addWithLabel("CAROUSEL TRANSITIONS", move_carousel);
 	s->addSaveFunc([move_carousel] {
 		if (move_carousel->getState()
 			&& !Settings::getInstance()->getBool("MoveCarousel")
@@ -258,7 +255,6 @@ void GuiMenu::openUISettings()
 	transitions.push_back("arcade");
 	for(auto it = transitions.cbegin(); it != transitions.cend(); it++)
 		transition_style->add(*it, *it, Settings::getInstance()->getString("TransitionStyle") == *it);
-	s->addWithLabel("TRANSITION STYLE", transition_style);
 	s->addSaveFunc([transition_style] {
 		if (Settings::getInstance()->getString("TransitionStyle") == "instant"
 			&& transition_style->getSelected() != "instant"
@@ -315,7 +311,6 @@ void GuiMenu::openUISettings()
 
 	for (auto it = styles.cbegin(); it != styles.cend(); it++)
 		gamelist_style->add(*it, *it, Settings::getInstance()->getString("GamelistViewStyle") == *it);
-	s->addWithLabel("GAMELIST VIEW STYLE", gamelist_style);
 	s->addSaveFunc([gamelist_style] {
 		bool needReload = false;
 		if (Settings::getInstance()->getString("GamelistViewStyle") != gamelist_style->getSelected())
@@ -328,7 +323,6 @@ void GuiMenu::openUISettings()
 	// Optionally ignore leading articles when sorting game titles
 	auto ignore_articles = std::make_shared<SwitchComponent>(mWindow);
 	ignore_articles->setState(Settings::getInstance()->getBool("IgnoreLeadingArticles"));
-	s->addWithLabel("IGNORE ARTICLES (NAME SORT ONLY)", ignore_articles);
 	s->addSaveFunc([ignore_articles, window] {
 		bool articles_are_ignored = Settings::getInstance()->getBool("IgnoreLeadingArticles");
 		Settings::getInstance()->setBool("IgnoreLeadingArticles", ignore_articles->getState());
@@ -354,7 +348,6 @@ void GuiMenu::openUISettings()
 	// lb/rb uses full screen size paging instead of -10/+10 steps
 	auto use_fullscreen_paging = std::make_shared<SwitchComponent>(mWindow);
 	use_fullscreen_paging->setState(Settings::getInstance()->getBool("UseFullscreenPaging"));
-	s->addWithLabel("USE FULL SCREEN PAGING FOR LB/RB", use_fullscreen_paging);
 	s->addSaveFunc([use_fullscreen_paging] {
 		Settings::getInstance()->setBool("UseFullscreenPaging", use_fullscreen_paging->getState());
 	});
