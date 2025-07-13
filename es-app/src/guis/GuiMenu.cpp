@@ -362,7 +362,6 @@ void GuiMenu::openUISettings()
 			systemfocus_list->add((*it)->getName(), (*it)->getName(), Settings::getInstance()->getString("StartupSystem") == (*it)->getName());
 		}
 	}
-	s->addWithLabel("START ON SYSTEM", systemfocus_list);
 	s->addSaveFunc([systemfocus_list] {
 		Settings::getInstance()->setString("StartupSystem", systemfocus_list->getSelected());
 	});
