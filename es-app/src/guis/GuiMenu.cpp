@@ -197,6 +197,32 @@ void GuiMenu::openUISettings()
 {
 	auto s = new GuiSettings(mWindow, "UI SETTINGS");
 
+	//UI mode
+	auto UImodeSelection = std::make_shared< OptionListComponent<std::string> >(mWindow, "UI MODE", false);
+	std::vector<std::string> UImodes = UIModeController::getInstance()->getUIModes();
+	for (auto it = UImodes.cbegin(); it != UImodes.cend(); it++)
+		UImodeSelection->add(*it, *it, Settings::getInstance()->getString("UIMode") == *it);
+	s->addWithLabel("UI MODE", UImodeSelection);
+	Window* window = mWindow;
+	s->addSaveFunc([ UImodeSelection, window]
+	{
+		std::string selectedMode = UImodeSelection->getSelected();
+		if (selectedMode != "Full")
+		{
+			std::string msg = "You are changing the UI to a restricted mode:\n" + selectedMode + "\n";
+			msg += "This will hide most menu-options to prevent changes to the system.\n";
+			msg += "To unlock and return to the full UI, enter this code: \n";
+			msg += "\"" + UIModeController::getInstance()->getFormattedPassKeyStr() + "\"\n\n";
+			msg += "Do you want to proceed?";
+			window->pushGui(new GuiMsgBox(window, msg,
+				"YES", [selectedMode] {
+					LOG(LogDebug) << "Setting UI mode to " << selectedMode;
+					Settings::getInstance()->setString("UIMode", selectedMode);
+					Settings::getInstance()->saveFile();
+			}, "NO",nullptr));
+		}
+	});
+
 	// screensaver
 	ComponentListRow screensaver_row;
 	screensaver_row.elements.clear();
