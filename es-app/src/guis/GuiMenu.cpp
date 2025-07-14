@@ -25,22 +25,40 @@
 
 GuiMenu::GuiMenu(Window* window) : GuiComponent(window), mMenu(window, "MAIN MENU"), mVersion(window)
 {
-	bool isFullUI = UIModeController::getInstance()->isUIModeFull();
+	// theme set
+	auto themeSets = ThemeData::getThemeSets();
 
-	if (isFullUI) {
-		addEntry("SOUND SETTINGS", 0x777777FF, true, [this] { openSoundSettings(); });
-		addEntry("UI SETTINGS", 0x777777FF, true, [this] { openUISettings(); });
-		addEntry("CONFIGURE INPUT", 0x777777FF, true, [this] { openConfigInput(); });
-	} else {
-		addEntry("SOUND SETTINGS", 0x777777FF, true, [this] { openSoundSettings(); });
+	if(!themeSets.empty())
+	{
+		std::map<std::string, ThemeSet>::const_iterator selectedSet = themeSets.find(Settings::getInstance()->getString("ThemeSet"));
+		if(selectedSet == themeSets.cend())
+			selectedSet = themeSets.cbegin();
+
+		auto theme_set = std::make_shared< OptionListComponent<std::string> >(mWindow, "THEME SET", false);
+		for(auto it = themeSets.cbegin(); it != themeSets.cend(); it++)
+			theme_set->add(it->first, it->first, it == selectedSet);
+		s->addWithLabel("THEME SET", theme_set);
+
+		Window* window = mWindow;
+		s->addSaveFunc([window, theme_set]
+		{
+			bool needReload = false;
+			std::string oldTheme = Settings::getInstance()->getString("ThemeSet");
+			if(oldTheme != theme_set->getSelected())
+				needReload = true;
+
+			Settings::getInstance()->setString("ThemeSet", theme_set->getSelected());
+
+			if(needReload)
+			{
+				Scripting::fireEvent("theme-changed", theme_set->getSelected(), oldTheme);
+				CollectionSystemManager::get()->updateSystemsList();
+				ViewController::get()->goToStart();
+				ViewController::get()->reloadAll(); // TODO - replace this with some sort of signal-based implementation
+			}
+		});
 	}
 
-	addEntry("QUIT", 0x777777FF, true, [this] {openQuitMenu(); });
-
-	addChild(&mMenu);
-	addVersionInfo();
-	setSize(mMenu.getSize());
-	setPosition((Renderer::getScreenWidth() - mSize.x()) / 2, Renderer::getScreenHeight() * 0.15f);
 }
 
 void GuiMenu::openScraperSettings()
