@@ -546,7 +546,7 @@ void GuiMenu::openQuitMenu()
 			} else {
 				row.makeAcceptInputHandler(quit_es_fx);
 			}
-			s->addRow(row);
+			row.addElement(std::make_shared<TextComponent>(window, "QUIT EMULATIONSTATION", Font::get(FONT_SIZE_MEDIUM), 0x777777FF), true);
 		}
 	}
 
