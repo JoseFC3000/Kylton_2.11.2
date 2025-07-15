@@ -194,6 +194,13 @@ std::string FileFilterIndex::getIndexableKey(FileData* game, FilterIndexType typ
 			}					
 			break;
 		}
+		case FAVORITES_FILTER:
+		{
+			if (game->getType() != GAME)
+				return "FALSE";
+			key = Utils::String::toUpper(game->metadata.get("favorite"));
+			break;
+		}
 	}
 	key = Utils::String::trim(key);
 	if (key.empty() || (type == RATINGS_FILTER && key == "0 STARS")) {
